@@ -3,6 +3,7 @@ import { postRequest } from '../../Utils/requests';
 import { BACKEND_URL } from '../../Utils/constants';
 import type habitItem from '../../Types/HabitItem';
 import CreateHabit from './CreateHabit';
+import IndividualHabit from './IndividualHabit';
 
 const AllHabits = () => {
     const [habits, setHabits] = useState<habitItem[]>([]);
@@ -25,7 +26,7 @@ const AllHabits = () => {
         <hr/>
         {habits.map(habit=>{
             return (
-                <li key={habit.id}>{habit.title}</li>
+                <IndividualHabit habit={habit}/>
             );
         })}
         <hr/>

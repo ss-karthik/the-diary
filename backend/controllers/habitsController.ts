@@ -64,6 +64,24 @@ export const deleteHabit = async(req:Request, res:Response)=>{
     }
 }
 
+export const getHabitById = async(req: Request, res:Response)=>{
+    const userid = req.user?.id;
+    const {habitid} = req.body;
+    try{
+        const habit = await prisma.habit.findUnique({
+            where: {
+                authorId: userid,
+                id: habitid,
+            },
+        });
+        res.status(201).json({habitdata: habit});
+    } catch(e){
+        console.log(e);
+        console.log('habit fetch error');
+        res.status(400).json({e});
+    }
+}
+
 export const getAllHabits = async(req:Request, res:Response)=>{
     const userid = req.user?.id;
     try {
@@ -96,25 +114,22 @@ export const getAllLogs = async(req:Request, res: Response)=>{
     }
 }
 
-export const logHabit = async(req:Request, res:Response)=>{
-    const {habitid, completed, notes} = req.body;
+export const getTodaysLog = async(req:Request, res: Response)=>{
+    const {habitid} = req.body;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    try {
+    try{
         const logdata = await prisma.habitLog.upsert({
             where: {
                 habitId_dateCreated: {
                     habitId: habitid,
                     dateCreated: today,
                 }
-            },
-            update: {
-                completed: completed,
-                notes: notes,
             }, 
+            update: {},
             create: {
-                completed: completed,
-                notes: notes,
+                completed: false,
+                notes: "",
                 dateCreated: today, 
                 habit: {
                     connect: {
@@ -122,6 +137,31 @@ export const logHabit = async(req:Request, res:Response)=>{
                     }
                 }
             }
+        });
+        res.status(201).json({logdata: logdata});
+    } catch(e){
+        console.log(e);
+        console.log('error logging habit');
+        res.status(400).json({e});
+    }
+}
+
+export const logHabit = async(req:Request, res:Response)=>{
+    const {habitid, completed, notes} = req.body;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    try {
+        const logdata = await prisma.habitLog.update({
+            where: {
+                habitId_dateCreated: {
+                    habitId: habitid,
+                    dateCreated: today,
+                }
+            },
+            data: {
+                completed: completed,
+                notes: notes,
+            }, 
         });
         res.status(201).json({logdata: logdata});
     } catch(e){

@@ -9,6 +9,7 @@ import { useContext, type PropsWithChildren } from 'react';
 import AllNotes from './Components/Notes/AllNotes';
 import IndividualNote from './Components/Notes/IndividualNote';
 import AllHabits from './Components/Habits/AllHabits';
+import HabitTrack from './Components/Habits/HabitTrack';
 
 const Routing = () => {
   return (
@@ -22,6 +23,7 @@ const Routing = () => {
           <Route path='/notes' element={<PrivateRoute><AllNotes/></PrivateRoute>}/>
           <Route path='/notes/:noteId' element={<PrivateRoute><IndividualNote/></PrivateRoute>}/>
           <Route path='/habits' element={<PrivateRoute><AllHabits/></PrivateRoute>}/>
+          <Route path='/habits/:habitId' element={<PrivateRoute><HabitTrack/></PrivateRoute>}/>
       </Routes>
     </AuthProvider>
   )
