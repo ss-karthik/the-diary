@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "HabitLog" ADD COLUMN     "dateCreated" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP;

@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String @unique
+  password String 
+  notes Note[]
+  habits Habit[]
+  todos Todo[]
+}
+
+model Note {
+  id Int @id @default(autoincrement())
+  title String
+  tags String[]
+  timestamp DateTime
+  content String
+  author User @relation(fields:[authorId], references: [id])
+  authorId Int
+}
+
+model Habit {
+  id Int @id @default(autoincrement())
+  title String
+  tags String[]
+  frequency String
+  streak Int
+  author User @relation(fields:[authorId], references: [id])
+  authorId Int
+  logs HabitLog[]
+}
+
+model HabitLog{
+  id Int @id @default(autoincrement())
+  habit Habit @relation(fields: [habitId], references: [id])
+  habitId Int
+  completed Boolean @default(false)
+  dateCreated DateTime @default(now()) @db.Date
+  timestamp DateTime @default(now())
+  notes String?
+
+  @@unique([habitId, dateCreated])
+}
+
+model Todo {
+  id Int @id @default(autoincrement())
+  title String
+  tags String[]
+  completed Boolean @default(false)
+  priority Int
+  due DateTime
+  notes String
+  author User @relation(fields:[authorId], references: [id])
+  authorId Int
+}
