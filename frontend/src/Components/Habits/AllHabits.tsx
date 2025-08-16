@@ -19,6 +19,10 @@ const AllHabits = () => {
     const handleCreate = (habit: habitItem)=>{
         setHabits(prevHabits=>[...prevHabits, habit]);
     }
+
+    const handleDelete = (deletedId: number)=>{
+        setHabits(prevHabits=>prevHabits.filter(habit=>habit.id!==deletedId));
+    }
     
   return (
     <div>
@@ -26,7 +30,7 @@ const AllHabits = () => {
         <hr/>
         {habits.map(habit=>{
             return (
-                <IndividualHabit habit={habit}/>
+                <IndividualHabit habit={habit} onDelete={handleDelete}/>
             );
         })}
         <hr/>

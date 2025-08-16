@@ -47,7 +47,7 @@ model Habit {
 
 model HabitLog{
   id Int @id @default(autoincrement())
-  habit Habit @relation(fields: [habitId], references: [id])
+  habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
   habitId Int
   completed Boolean @default(false)
   dateCreated DateTime @default(now()) @db.Date

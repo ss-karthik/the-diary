@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-const IndividualHabit = ({habit}: {habit:habitItem}) => {
+const IndividualHabit = ({habit, onDelete}: {habit:habitItem, onDelete:(id:number)=>void}) => {
 
   const [title, setTitle] = useState(habit.title);
   const [tags, setTags] = useState(habit.tags.join(' '));
@@ -57,6 +57,14 @@ const IndividualHabit = ({habit}: {habit:habitItem}) => {
     setSaving(false);
   }
 
+  const handleHabitDeletion = async()=>{
+    const data = {
+      habitid: habit.id,
+    }
+    const resp = await postRequest(`${BACKEND_URL}/habits/delete`, data);
+    onDelete(habit.id);
+  }
+
   return (
     <div>
       {saving && <h4>Saving...</h4>}
@@ -68,6 +76,8 @@ const IndividualHabit = ({habit}: {habit:habitItem}) => {
       <input type='text' value={notes} onChange={(e)=>{setNotes(e.target.value)}} />
       <input type='checkbox' checked={completed} onChange={(e)=>{setCompleted(e.target.checked)}}/>
       <Link to={`/habits/${habit.id}`}><button>Track Habit</button></Link>
+      <span>  </span>
+      <button onClick={handleHabitDeletion}>Delete Habit</button>
     </div>
   )
 }
