@@ -1,8 +1,65 @@
-import { useState } from "react"
+import { useContext } from 'react';
+import { Link } from "react-router-dom"
+import { AuthContext } from '../Auth/AuthProvider';
 
 const Nav = () => {
+  const { isLoggedIn } = useContext(AuthContext);
   return (
-    <div>Nav</div>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
+      <div className="container mx-auto lg:px-6 px-2 py-4 flex justify-between items-center">
+        {isLoggedIn ? (
+          <>
+          <Link to="/dashboard" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+            The Diary
+          </Link>
+        
+          <div className="flex space-x-6">
+              
+            <Link 
+              to="/todos" 
+              className="text-gray-600 hover:text-blue-600 hover:scale-105 transition-all duration-300 font-medium"
+            >
+              Todos
+            </Link>
+            <Link 
+              to="/notes" 
+              className="text-gray-600 hover:text-blue-600 hover:scale-105 transition-all duration-300 font-medium"
+            >
+              Notes
+            </Link>
+            <Link 
+              to="/habits" 
+              className="text-gray-600 hover:text-blue-600 hover:scale-105 transition-all duration-300 font-medium"
+            >
+              Habits
+            </Link>
+            </div>
+          </>
+          ) : (
+            <>
+              <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+            The Diary
+          </Link>
+        
+          <div className="flex space-x-6">
+              
+            <Link 
+              to="/login" 
+              className="text-gray-600 hover:text-blue-600 hover:scale-105 transition-all duration-300 font-medium"
+            >
+              Login
+            </Link>
+            <Link 
+              to="/signup" 
+              className="text-gray-600 hover:text-blue-600 hover:scale-105 transition-all duration-300 font-medium"
+            >
+              Sign Up
+            </Link>
+            </div>
+            </>
+          )}
+      </div>
+    </nav>
   )
 }
 

@@ -10,10 +10,13 @@ import AllNotes from './Components/Notes/AllNotes';
 import IndividualNote from './Components/Notes/IndividualNote';
 import AllHabits from './Components/Habits/AllHabits';
 import HabitTrack from './Components/Habits/HabitTrack';
+import Nav from './Components/Nav/Nav';
 
 const Routing = () => {
   return (
     <AuthProvider>
+      <Nav/>
+      <div className='pt-20'>
       <Routes>
           <Route path='/' element={<GuestRoute><Home/></GuestRoute>}/>
           <Route path='/login' element={<GuestRoute><Login/></GuestRoute>}/>
@@ -25,6 +28,7 @@ const Routing = () => {
           <Route path='/habits' element={<PrivateRoute><AllHabits/></PrivateRoute>}/>
           <Route path='/habits/:habitId' element={<PrivateRoute><HabitTrack/></PrivateRoute>}/>
       </Routes>
+      </div>
     </AuthProvider>
   )
 }
