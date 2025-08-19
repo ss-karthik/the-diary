@@ -21,18 +21,20 @@ const AllNotes = () => {
     }
 
     return (
-        <div>
-            Notes
-            <hr/>
+        <div className='flex flex-col items-center gap-5'>
+            <h1 className='text-4xl'>Notes</h1>
+            <CreateNote onCreate={handleCreate}/>
+            <hr className='h-1 w-screen border-gruvbox-light'/>
+            <div className='flex flex-wrap max-w-80 gap-10'>
             {notes.map(note=>{
                 return(
                     <Link to={`/notes/${note.id}`}>
-                        <button key={note.id}>{note.title}</button>
+                        <button className='text-xl rounded-sm bg-gruvbox-green text-gruvbox-mid-d cursor-pointer px-2 py-1' key={note.id}>{note.title}</button>
                     </Link>
                 );
             })}
+            </div>
             <hr/>
-            <CreateNote onCreate={handleCreate}/>
         </div>
     )
 }

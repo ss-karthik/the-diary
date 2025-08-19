@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-gruvbox-dark: #1d2021;
+  --color-gruvbox-mid-d: #282828;
+  --color-gruvbox-mid-l: #32302f;
+  --color-gruvbox-light: #ebdbb2;
+  --color-gruvbox-red: #fb4934;
+  --color-gruvbox-green: #b8bb26;
+  --color-gruvbox-yellow: #fabd2f;
+  --color-gruvbox-blue: #83a598;
+  --color-gruvbox-purple: #d3869b;
+  --color-gruvbox-aqua: #8ec07c;
+  --color-gruvbox-orange: #fe8019;
+}

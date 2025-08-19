@@ -22,14 +22,17 @@ const CreateNote = ({onCreate}: {onCreate: (todo: noteItem)=>void}) => {
     }
 
     return (
-        <div>
-            Create Note
-            <div>
-                <input type='text' value={title} onChange={(e)=>{setTitle(e.target.value)}} />
-                <input type='text' value={tags} onChange={(e)=>{setTags(e.target.value)}} />
-                <input type='text' value={content} onChange={(e)=>{setContent(e.target.value)}} />
-                <button onClick={handleCreation}>Create!</button>
+        <div className='flex flex-col gap-5'>
+            <h1 className='text-2xl'>Create Note</h1>
+            <div className='grid grid-flow-row grid-cols-2 gap-5'>
+                <p>Title:</p>
+                <input className='border border-gruvbox-light rounded-sm' type='text' value={title} onChange={(e)=>{setTitle(e.target.value)}} />
+                <p>Tags:</p>
+                <input className='border border-gruvbox-light rounded-sm' type='text' value={tags} onChange={(e)=>{setTags(e.target.value)}} />
+                <p>Content:</p>
+                <input className='border border-gruvbox-light rounded-sm' type='text' value={content} onChange={(e)=>{setContent(e.target.value)}} />
             </div>
+            <button className='text-xl rounded-sm bg-gruvbox-yellow text-gruvbox-mid-d cursor-pointer px-2 py-1' onClick={handleCreation}>Create!</button>
         </div>
     )
 }

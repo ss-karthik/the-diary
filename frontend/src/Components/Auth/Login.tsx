@@ -15,10 +15,17 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <input type='text' value={email} onChange={(e)=>{setEmail(e.target.value)}} />
-        <input type='password' value={pwd} onChange={(e)=>{setPwd(e.target.value)}} />
-        <button onClick={handleLogIn}>LogIn!</button>
+    <div className='flex flex-col items-center'>
+      <div className='bg-gruvbox-mid-l flex flex-col items-center gap-5 p-5 rounded-lg'>
+        <h1 className='text-2xl'>Log In</h1>
+        <div className='grid grid-flow-row grid-cols-2 gap-5'>
+          <p>Email:</p>
+          <input className='border border-gruvbox-light rounded-sm' type='text' value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+          <p>Password:</p>
+          <input className='border border-gruvbox-light rounded-sm' type='password' value={pwd} onChange={(e)=>{setPwd(e.target.value)}} />
+        </div>
+        <button className='text-xl rounded-lg bg-gruvbox-blue text-gruvbox-mid-d cursor-pointer px-2 py-1' onClick={handleLogIn}>LogIn!</button>
+      </div>
     </div>
   )
 }
