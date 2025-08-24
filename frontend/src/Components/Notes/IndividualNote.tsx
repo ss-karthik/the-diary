@@ -75,21 +75,31 @@ const IndividualNote = () => {
   
   
   return (
-    <div>
-      {noteId}
+    <div className='flex flex-col items-center gap-5'>
       {saving && <h4>Saving...</h4>}
-      
-      <>
-        <input type='text' value={title} onChange={(e)=>{setTitle(e.target.value)}}></input>
-      <h1>
-        <input type='text' value={tags} onChange={(e)=>{setTags(e.target.value)}}></input>
-      </h1>
-      <h1>{timestamp}</h1>
-      <h1>
-        <input type='text' value={content} onChange={(e)=>{setContent(e.target.value)}}></input>
-      </h1>
-      </>
-      <button onClick={handleDeletion}>Delete</button>
+      <div className='flex flex-wrap gap-10 w-full justify-around'>
+        <div className='flex flex-col max-w-80 gap-5'>
+          <div className='flex flex-col gap-2'>
+            <h1>Title: </h1>
+            <input className='lg:w-100 border border-gruvbox-mid-l rounded-sm p-3 resize-y font-mono text-2xl leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent' type='text' value={title} onChange={(e)=>{setTitle(e.target.value)}}></input>
+          </div>
+          <div className='flex justify-between'>
+            <h1>Created On: </h1>
+            <h1>{timestamp.substring(0,10)}</h1>
+          </div>
+          <div className='flex flex-col gap-2'>
+            <h1>Tags: </h1>
+            <input className='lg:w-100 border border-gruvbox-mid-l rounded-sm p-3 resize-y font-mono text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent' type='text' value={tags} onChange={(e)=>{setTags(e.target.value)}}></input>
+          </div>
+          <button className='text-xl lg:w-100 rounded-sm bg-gruvbox-red text-gruvbox-mid-d cursor-pointer px-2 py-1' onClick={handleDeletion}>Delete</button>
+        </div>
+        <div>
+          <div className='flex flex-col gap-2'>
+            <h1>Notes: </h1>
+            <textarea className='md:w-100 w-84 h-120 border border-gruvbox-mid-l rounded-sm p-3 resize-y font-mono text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent' value={content} onChange={(e)=>{setContent(e.target.value)}}></textarea>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

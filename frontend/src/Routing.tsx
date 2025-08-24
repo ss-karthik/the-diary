@@ -16,7 +16,7 @@ const Routing = () => {
   return (
     <AuthProvider>
       <Nav/>
-      <div className='h-screen text-gruvbox-light pt-20 bg-gruvbox-dark'>
+      <div className='min-h-screen h-full text-gruvbox-light pt-20 bg-gruvbox-dark'>
       <Routes>
           <Route path='/' element={<GuestRoute><Home/></GuestRoute>}/>
           <Route path='/login' element={<GuestRoute><Login/></GuestRoute>}/>

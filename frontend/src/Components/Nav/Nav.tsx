@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from '../Auth/AuthProvider';
 import { postRequest } from '../../Utils/requests';
 import { BACKEND_URL } from '../../Utils/constants';
+import { NotebookTabs } from 'lucide-react';
 
 const Nav = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -16,7 +17,8 @@ const Nav = () => {
         {isLoggedIn ? (
           <>
           <Link to="/dashboard" className="text-2xl font-bold text-gray-800 hover:text-gruvbox-red transition-colors duration-300">
-            The Diary
+             <h1 className='block md:hidden'><NotebookTabs/></h1>
+            <h1 className='hidden md:block'>The Diary</h1>
           </Link>
         
           <div className="flex space-x-6">
@@ -46,8 +48,9 @@ const Nav = () => {
           </>
           ) : (
             <>
-              <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-gruvbox-red transition-colors duration-300">
-            The Diary
+          <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-gruvbox-red transition-colors duration-300">
+            <h1 className='block md:hidden'><NotebookTabs/></h1>
+            <h1 className='hidden md:block'>The Diary</h1>
           </Link>
         
           <div className="flex space-x-6">
