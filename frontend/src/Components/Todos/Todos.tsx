@@ -24,16 +24,18 @@ const Todos = () => {
   }
 
   return (
-    <div>
-        Todos
-        <hr/>
+    <div className='flex flex-col items-center gap-5'>
+      <div className='flex flex-wrap gap-10 w-full justify-around'>
+        <div>
+        <h1 className='text-2xl'>Todos</h1>
           {todos.map(todo=>{
             return (
               <IndividualTodo key={todo.id} todo={todo} onDelete={handleDelete}/>
             );
           })}
-        <hr/>
+        </div>
         <CreateTodo onCreate={handleCreate}/>
+    </div>
     </div>
   )
 }
