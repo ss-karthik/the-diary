@@ -66,18 +66,30 @@ const IndividualHabit = ({habit, onDelete}: {habit:habitItem, onDelete:(id:numbe
   }
 
   return (
-    <div>
+    <div className="bg-gruvbox-mid-l rounded-lg p-6 mb-4 shadow-sm">
       {saving && <h4>Saving...</h4>}
-      <h3>{title}</h3>
-      <span>{tags} -- 
-        {completed ? (<span>Completed</span>) : (<span>Not Completed</span>)} 
-        -- {notes} -- {createdOn}
+      <div className='flex flex-col'>
+      <h3 className='text-2xl'>{title}</h3>
+      {completed && (<span className='text-gruvbox-green'>Completed</span>)} 
+      <div className='flex gap-2'>
+        {tags.split(" ").filter((tag) => tag.trim()).map((tag, index) => (
+              <span
+                key={index}
+                className="bg-gruvbox-light text-gruvbox-mid-d px-2 py-1 text-xs rounded-md"
+              >
+                {tag}
+              </span>
+        ))}
+      </div>
+      <span>
+        {createdOn.substring(0,10)}
       </span>
-      <input type='text' value={notes} onChange={(e)=>{setNotes(e.target.value)}} />
-      <input type='checkbox' checked={completed} onChange={(e)=>{setCompleted(e.target.checked)}}/>
-      <Link to={`/habits/${habit.id}`}><button>Track Habit</button></Link>
-      <span>  </span>
-      <button onClick={handleHabitDeletion}>Delete Habit</button>
+      <div className='flex gap-2 justify-center items-center'>
+        <input className='w-6 h-6' type='checkbox' checked={completed} onChange={(e)=>{setCompleted(e.target.checked)}}/>
+        <Link to={`/habits/${habit.id}`}><button className='text-xl rounded-sm bg-gruvbox-aqua text-gruvbox-mid-d cursor-pointer px-1 py-1'>Track Habit</button></Link>
+        <button className='text-xl rounded-sm bg-gruvbox-aqua text-gruvbox-mid-d cursor-pointer px-1 py-1' onClick={handleHabitDeletion}>Delete Habit</button>
+      </div>
+      </div>
     </div>
   )
 }

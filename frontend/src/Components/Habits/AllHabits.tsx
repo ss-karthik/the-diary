@@ -25,16 +25,18 @@ const AllHabits = () => {
     }
     
   return (
-    <div>
-        Habits
-        <hr/>
-        {habits.map(habit=>{
-            return (
-                <IndividualHabit habit={habit} onDelete={handleDelete}/>
-            );
-        })}
-        <hr/>
-        <CreateHabit onCreate={handleCreate}/>
+    <div className='flex flex-col items-center gap-5'>
+        <div className='flex flex-wrap gap-10 w-full justify-around'>
+            <div>
+                <h1 className='text-2xl'>Habits</h1>
+                {habits.map(habit=>{
+                    return (
+                        <IndividualHabit habit={habit} onDelete={handleDelete}/>
+                    );
+                })}
+            </div>
+            <CreateHabit onCreate={handleCreate}/>
+        </div>
     </div>
   )
 }
