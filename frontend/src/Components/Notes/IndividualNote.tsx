@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BACKEND_URL } from '../../Utils/constants';
 import { postRequest } from '../../Utils/requests';
+import { Pencil } from 'lucide-react';
 
 const IndividualNote = () => {
   const {noteId} = useParams();
@@ -15,6 +16,7 @@ const IndividualNote = () => {
   //const [lastSaved, setLastSaved] = useState(new Date().toString);
   const [isLoaded, setIsLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [editingTags, setEditingTags] = useState(false);
   
 
   useEffect(()=>{  
@@ -89,7 +91,23 @@ const IndividualNote = () => {
           </div>
           <div className='flex flex-col gap-2'>
             <h1>Tags: </h1>
-            <input className='lg:w-100 border border-gruvbox-mid-l rounded-sm p-3 resize-y font-mono text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent' type='text' value={tags} onChange={(e)=>{setTags(e.target.value)}}></input>
+            <div className='flex gap-5'>
+            {editingTags ? (
+              <input className='lg:w-100 border border-gruvbox-mid-l rounded-sm p-3 resize-y font-mono text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent' type='text' value={tags} onChange={(e)=>{setTags(e.target.value)}}></input>
+            ) : (
+              <>
+              {tags.split(" ").filter((tag) => tag.trim()).map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-gruvbox-light text-gruvbox-mid-d px-2 py-1 text-xs rounded-md"
+                    >
+                      {tag}
+                    </span>
+              ))}
+              </>
+            )}
+            <Pencil className='cursor-pointer' onClick={()=>{setEditingTags(!editingTags)}}/>
+            </div>
           </div>
           <button className='text-xl lg:w-100 rounded-sm bg-gruvbox-red text-gruvbox-mid-d cursor-pointer px-2 py-1' onClick={handleDeletion}>Delete</button>
         </div>
