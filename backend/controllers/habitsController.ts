@@ -116,8 +116,8 @@ export const getAllLogs = async(req:Request, res: Response)=>{
 
 export const getTodaysLog = async(req:Request, res: Response)=>{
     const {habitid} = req.body;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const todayDate = new Date().toISOString().split('T')[0];
+    const today = new Date(todayDate + 'T00:00:00.000Z');
     try{
         const logdata = await prisma.habitLog.upsert({
             where: {
@@ -148,8 +148,8 @@ export const getTodaysLog = async(req:Request, res: Response)=>{
 
 export const logHabit = async(req:Request, res:Response)=>{
     const {habitid, completed, notes} = req.body;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const todayDate = new Date().toISOString().split('T')[0];
+    const today = new Date(todayDate + 'T00:00:00.000Z');
     try {
         const logdata = await prisma.habitLog.update({
             where: {
