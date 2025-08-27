@@ -7,7 +7,7 @@ import { homepage } from './controllers/homeController';
 import { requireAuth } from "./middlewares/authMiddleware";
 import { createTodo, deleteTodo, getAllTodos, getTodoByDateRange, updateTodo } from "./controllers/todoController";
 import { createNote, deleteNote, getAllNotes, getNoteById, updateNote } from "./controllers/notesController";
-import { createHabit, deleteHabit, getAllHabits, getAllLogs, getHabitById, getTodaysLog, logHabit, updateHabit } from "./controllers/habitsController";
+import { createHabit, deleteHabit, getAllHabits, getHabitById, updateHabit } from "./controllers/habitsController";
 
 declare global {
   namespace Express {
@@ -55,9 +55,11 @@ app.post('/habits/create', requireAuth, createHabit);
 app.post('/habits/update', requireAuth, updateHabit);
 app.post('/habits/delete', requireAuth, deleteHabit);
 app.post('/habits/getAll', requireAuth, getAllHabits);
+/*
 app.post('/habits/log', requireAuth, logHabit);
 app.post('/habits/getLogs', requireAuth, getAllLogs);
 app.post('/habits/getTodaysLog', requireAuth, getTodaysLog); 
+*/
 app.post('/habits/getById', requireAuth, getHabitById);
 
 export default app;

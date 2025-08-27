@@ -28,7 +28,7 @@ export const createHabit = async(req:Request, res: Response)=>{
 }
 
 export const updateHabit = async(req:Request, res:Response)=>{
-    const {title, tags, frequency, habitid} = req.body;
+    const {title, tags, frequency, logs, habitid} = req.body;
     try {
         const habit = await prisma.habit.update({
             where: {
@@ -38,6 +38,7 @@ export const updateHabit = async(req:Request, res:Response)=>{
                 title: title,
                 tags: tags,
                 frequency: frequency,
+                logs: logs,
             }
         });
         res.status(201).json({habit: habit});
@@ -97,7 +98,7 @@ export const getAllHabits = async(req:Request, res:Response)=>{
         res.status(400).json({e});
     }
 }
-
+/*
 export const getAllLogs = async(req:Request, res: Response)=>{
     const {habitid} = req.body;
     try{
@@ -170,3 +171,4 @@ export const logHabit = async(req:Request, res:Response)=>{
         res.status(400).json({e});
     }
 }
+*/

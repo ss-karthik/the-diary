@@ -42,9 +42,10 @@ model Habit {
   streak Int
   author User @relation(fields:[authorId], references: [id])
   authorId Int
-  logs HabitLog[]
+  logs String[]
 }
 
+/*
 model HabitLog{
   id Int @id @default(autoincrement())
   habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
@@ -56,6 +57,7 @@ model HabitLog{
 
   @@unique([habitId, dateCreated])
 }
+*/
 
 model Todo {
   id Int @id @default(autoincrement())

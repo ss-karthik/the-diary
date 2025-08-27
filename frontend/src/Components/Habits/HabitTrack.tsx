@@ -2,24 +2,19 @@ import {useState, useEffect} from 'react'
 import { postRequest } from '../../Utils/requests'
 import { BACKEND_URL } from '../../Utils/constants'
 import type habitItem from "../../Types/HabitItem"
-import type habitLog from "../../Types/HabitLog"
 import { useParams } from 'react-router-dom'
 
 const HabitTrack = () => {
     const {habitId} = useParams();
     const [title, setTitle] = useState("");
     const [tags, setTags] = useState("");
-    const [logs, setLogs] = useState<habitLog[]>([]);
+    const [logs, setLogs] = useState([]);
     const [habit, setHabit] = useState<habitItem>();
 
-    const loadLogs = async (id:number)=>{
     
-            const data = {
-                habitid: id,
-            };
-            const response = await postRequest(`${BACKEND_URL}/habits/getLogs`, data);
-            setLogs(response.logdata);
-        
+
+    const calcStreak = async () => {
+        //implemment later
     }
 
     const loadHabit = async()=>{
@@ -31,7 +26,7 @@ const HabitTrack = () => {
             setHabit(response.habitdata);
             setTitle(response.habitdata.title);
             setTags(response.habitdata.tags.join(' '));
-            await loadLogs(response.habitdata.id);
+            setLogs(response.habitdata.logs);
         }
     }
     
@@ -40,24 +35,30 @@ const HabitTrack = () => {
     }, [habitId]);
 
   return (
-    <div>
-        <h1>Tracking Habit: {title}</h1>
-        <p>Tags: {tags}</p>
-
+    <div className='flex flex-col items-center justify-center gap-5'>
+        <h1 className='text-2xl'>{title}</h1>
+        <div className='flex gap-2'>
+        {tags.split(" ").filter((tag) => tag.trim()).map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-gruvbox-light text-gruvbox-mid-d px-2 py-1 text-xs rounded-md"
+                    >
+                      {tag}
+                    </span>
+        ))}
+        </div>
+        <h1 className='text-2xl'>Logs of Completion</h1>
         {logs && logs.map(log=>{
             return(
-                <div key={log.id}>
-                    <span>{log.completed ? (<>Completed</>) : (<>Not Completed</>)}</span>
+                <div key={log}>
                     <span> 
-                        -- {log.dateCreated} 
-                        --  {log.notes}
+                        {log} 
                     </span>
                 </div>
             )
         })
 
         }
-
     </div>
   )
 }
