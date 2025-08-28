@@ -28,7 +28,7 @@ export const createHabit = async(req:Request, res: Response)=>{
 }
 
 export const updateHabit = async(req:Request, res:Response)=>{
-    const {title, tags, frequency, logs, habitid} = req.body;
+    const {title, tags, frequency, logs, habitid, streak} = req.body;
     try {
         const habit = await prisma.habit.update({
             where: {
@@ -39,6 +39,7 @@ export const updateHabit = async(req:Request, res:Response)=>{
                 tags: tags,
                 frequency: frequency,
                 logs: logs,
+                streak: streak,
             }
         });
         res.status(201).json({habit: habit});

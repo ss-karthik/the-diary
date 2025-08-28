@@ -10,12 +10,7 @@ const HabitTrack = () => {
     const [tags, setTags] = useState("");
     const [logs, setLogs] = useState([]);
     const [habit, setHabit] = useState<habitItem>();
-
-    
-
-    const calcStreak = async () => {
-        //implemment later
-    }
+    const [streak, setStreak] = useState();
 
     const loadHabit = async()=>{
         if(habitId){
@@ -27,6 +22,7 @@ const HabitTrack = () => {
             setTitle(response.habitdata.title);
             setTags(response.habitdata.tags.join(' '));
             setLogs(response.habitdata.logs);
+            setStreak(response.habitdata.streak);
         }
     }
     
@@ -47,6 +43,7 @@ const HabitTrack = () => {
                     </span>
         ))}
         </div>
+        <h1 className='text-2xl'>Streak: {streak}</h1>
         <h1 className='text-2xl'>Logs of Completion</h1>
         {logs && logs.map(log=>{
             return(
