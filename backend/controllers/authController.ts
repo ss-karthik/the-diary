@@ -1,5 +1,6 @@
 import jwt, { Secret } from "jsonwebtoken";
 import { Request, Response } from "express"
+import bcrypt from "bcrypt"
 import prisma from '../utils/prisma';
 
 const tokenAge = 3*24*60*60; //3days
@@ -10,14 +11,30 @@ const createToken = (id:Number)=>{
     })
 }
 
+const hash = async (pwd:string):Promise<string>=>{
+    const saltRounds = 11;
+    try{
+        const hashedPwd = bcrypt.hash(pwd, saltRounds);
+        return hashedPwd;
+    } catch(e){
+        throw e;
+    }
+}
+
+const check = async (enteredPwd:string, originalPwd:string):Promise<boolean>=>{
+    const res:boolean = await bcrypt.compare(enteredPwd, originalPwd);
+    return res;
+}
+
 export const signup = async (req: Request, res:Response)=>{
     const {uname, email, pwd} = req.body;
     try{
+        const hashedPwd = await hash(pwd);
         const user = await prisma.user.create({
           data:{
                 username: uname,
                 email: email,
-                password: pwd,
+                password: hashedPwd,
             },
          });
          const token = createToken(user.id);
@@ -42,10 +59,12 @@ export const login = async (req: Request, res:Response)=>{
         const user = await prisma.user.findUnique({
             where: {
                 email: email,
-                password: pwd,
             }
         });
         if(user){
+            if(!await check(pwd, user.password)){
+                throw new Error("Invalid Email or Password.");
+            }
             const token = createToken(user.id);
             res.cookie('jwt', token, { 
                 httpOnly:true, 
