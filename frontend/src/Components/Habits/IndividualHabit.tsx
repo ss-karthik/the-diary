@@ -56,10 +56,10 @@ const IndividualHabit = ({habit, onDelete}: {habit:habitItem, onDelete:(id:numbe
     setSaving(false);
   }
 
-  const calcStreak = (logs:string[])=>{
-    
-    let max = 0, i=0;
   
+
+  const calcStreak = (logs:string[])=>{
+    let max = 0, i=0;
     let c = 1;
     for(i=1; i<logs.length; i++){
       while(i<logs.length && parseInt(logs[i].substring(8,10)) - parseInt(logs[i-1].substring(8,10)) <= 1){
