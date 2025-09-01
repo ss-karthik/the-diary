@@ -22,7 +22,7 @@ export const requireAuth = async (req:Request, res:Response, next:NextFunction)=
         if(!user){
             res.status(400).json({autherr: "user not found"});
         } else {
-            const temp = {id: user?.id, email: user?.email};
+            const temp = {id: user?.id, email: user?.email, username: user?.username};
             req.user = temp;
             next();
         }

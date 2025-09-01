@@ -5,6 +5,7 @@ import { getRequest } from "../../Utils/requests.ts";
 type AuthContextType = {
     isLoggedIn: boolean;
     email: string;
+    uname: string;
     loading: boolean;
     login: (email: string)=>void;
     logout: ()=> void;
@@ -13,6 +14,7 @@ type AuthContextType = {
 export const AuthContext = createContext<AuthContextType>({
     isLoggedIn: false,
     email: "",
+    uname: "",
     loading: true,
     login: () => {},
     logout: () => {},
@@ -21,6 +23,7 @@ export const AuthContext = createContext<AuthContextType>({
 export const AuthProvider = ({children}: PropsWithChildren) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [email, setEmail] = useState("");
+    const [uname, setUname] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
@@ -30,6 +33,7 @@ export const AuthProvider = ({children}: PropsWithChildren) => {
                 if(res && res.email){
                     setIsLoggedIn(true);
                     setEmail(res.email);
+                    setUname(res.username);
                 } else {
                     setIsLoggedIn(false);
                     setEmail("");
@@ -56,7 +60,7 @@ export const AuthProvider = ({children}: PropsWithChildren) => {
     }
 
   return (
-    <AuthContext.Provider value={{isLoggedIn, email, loading, login, logout}}>
+    <AuthContext.Provider value={{isLoggedIn, email, uname, loading, login, logout}}>
         {children}
     </AuthContext.Provider>
   )
