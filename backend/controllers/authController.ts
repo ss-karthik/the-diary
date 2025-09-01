@@ -41,9 +41,9 @@ export const signup = async (req: Request, res:Response)=>{
          res.cookie('jwt', token, { 
             httpOnly:true, 
             maxAge: tokenAge*1000, //as maxAge expects time in ms
-            //secure: true,
-            //sameSite: 'none',
-            //partitioned: true,
+            secure: true,
+            sameSite: 'none',
+            partitioned: true,
         });
         res.status(201).json({user: user.id});
     } catch (e){
@@ -70,9 +70,9 @@ export const login = async (req: Request, res:Response)=>{
                 httpOnly:true, 
                 maxAge: tokenAge*1000, 
                 //enable later once deployed
-                //secure: true,
-                //sameSite: 'none',
-                //partitioned: true,
+                secure: true,
+                sameSite: 'none',
+                partitioned: true,
             });
             res.status(201).json({user: user.id});
         } else {
@@ -93,9 +93,9 @@ export const logout = async (req: Request, res:Response)=>{
         res.cookie('jwt', "", { 
                 httpOnly:true, 
                 maxAge: 1, 
-                //secure: true,
-                //sameSite: 'none',
-                //partitioned: true,
+                secure: true,
+                sameSite: 'none',
+                partitioned: true,
         });
         res.status(200).json({user: null});
     } catch (e){
