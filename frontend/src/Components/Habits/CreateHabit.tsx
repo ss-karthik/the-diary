@@ -6,7 +6,7 @@ import { postRequest } from '../../Utils/requests';
 const CreateHabit = ({onCreate}: {onCreate: (habit: habitItem)=>void}) => {
     const [title, setTitle] = useState("");
     const [tags, setTags] = useState("");
-    const [frequency, setFrequency] = useState("daily");
+    const [frequency] = useState("daily");
     // other frequency options available later
     //default streak on creation = 0;
 

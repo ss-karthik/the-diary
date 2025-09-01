@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 import { postRequest } from '../../Utils/requests'
 import { BACKEND_URL } from '../../Utils/constants'
-import type habitItem from "../../Types/HabitItem"
 import { useParams } from 'react-router-dom'
 import HabitCalendar from './HabitCalendar'
 import { Calendar1, ChevronRight, List } from 'lucide-react'
@@ -10,7 +9,6 @@ const HabitTrack = () => {
     const [title, setTitle] = useState("");
     const [tags, setTags] = useState("");
     const [logs, setLogs] = useState([]);
-    const [habit, setHabit] = useState<habitItem>();
     const [streak, setStreak] = useState();
     const [runningStreak, setRunningStreak] = useState(0);
     const [calView, setCalView] = useState(true);
@@ -21,7 +19,6 @@ const HabitTrack = () => {
                 habitid: parseInt(habitId)
             }
             const response = await postRequest(`${BACKEND_URL}/habits/getById`, data);
-            setHabit(response.habitdata);
             setTitle(response.habitdata.title);
             setTags(response.habitdata.tags.join(' '));
             setLogs(response.habitdata.logs);
@@ -58,7 +55,7 @@ const HabitTrack = () => {
         </div>
         <div className='flex gap-5 items-center justify-center flex-wrap'>
             <div className='bg-gruvbox-yellow text-gruvbox-dark p-2 rounded-xl text-2xl'>Best Streak: {streak}</div>
-            <div className='bg-gruvbox-aqua text-gruvbox-dark p-2 rounded-xl  text-2xl'>Running Streak: {streak}</div>
+            <div className='bg-gruvbox-aqua text-gruvbox-dark p-2 rounded-xl  text-2xl'>Running Streak: {runningStreak}</div>
         </div>
         <div className='flex gap-5 items-center justify-center flex-wrap'>
             <h1 className='text-2xl'>Logs of Completion</h1>

@@ -10,11 +10,10 @@ import { Pencil } from 'lucide-react'
 const IndividualHabit = ({habit, onDelete}: {habit:habitItem, onDelete:(id:number)=>void}) => {
 
   const today = new Date().toISOString().split('T')[0];
-  const [title, setTitle] = useState(habit.title);
+  const [title] = useState(habit.title);
   const [tags, setTags] = useState(habit.tags.join(' '));
   const [completed, setCompleted] = useState(habit.logs.includes(today));
-  const [notes, setNotes] = useState("");
-  const [createdOn, setCreatedOn] = useState("");
+
   const [logs, setLogs] = useState(habit.logs);
   const [saving, setSaving] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -52,7 +51,7 @@ const IndividualHabit = ({habit, onDelete}: {habit:habitItem, onDelete:(id:numbe
       logs: newLogs,
       streak: st,
     }
-    const resp = await postRequest(`${BACKEND_URL}/habits/update`, data);
+    await postRequest(`${BACKEND_URL}/habits/update`, data);
     setSaving(false);
   }
 
@@ -79,7 +78,7 @@ const IndividualHabit = ({habit, onDelete}: {habit:habitItem, onDelete:(id:numbe
     const data = {
       habitid: habit.id,
     }
-    const resp = await postRequest(`${BACKEND_URL}/habits/delete`, data);
+    await postRequest(`${BACKEND_URL}/habits/delete`, data);
     onDelete(habit.id);
   }
 
