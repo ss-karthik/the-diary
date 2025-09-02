@@ -42,27 +42,33 @@ const HabitTrack = () => {
 
   return (
     <div className='flex flex-col items-center justify-center gap-5'>
-        <h1 className='text-2xl'>{title}</h1>
-        <div className='flex gap-2'>
-        {tags.split(" ").filter((tag) => tag.trim()).map((tag, index) => (
-            <span
-                key={index}
-                className="bg-gruvbox-light text-gruvbox-mid-d px-2 py-1 text-md rounded-md"
-            >
-                {tag}
-            </span>
-        ))}
+        <div className='flex flex-wrap gap-10 w-full justify-around'>
+        <div className='flex flex-col items-center gap-5'>
+            <h1 className='text-2xl'>{title}</h1>
+            <div className='flex gap-2'>
+            {tags.split(" ").filter((tag) => tag.trim()).map((tag, index) => (
+                <span
+                    key={index}
+                    className="bg-gruvbox-light text-gruvbox-mid-d px-2 py-1 text-md rounded-md"
+                >
+                    {tag}
+                </span>
+            ))}
+            </div>
+            <div className='flex gap-5 items-center justify-center flex-wrap'>
+                <div className='bg-gruvbox-yellow text-gruvbox-dark p-2 rounded-xl text-2xl'>Best Streak: {streak}</div>
+                <div className='bg-gruvbox-aqua text-gruvbox-dark p-2 rounded-xl  text-2xl'>Running Streak: {runningStreak}</div>
+            </div>
+            <div className='flex gap-5 items-center justify-center flex-wrap'>
+            </div>
         </div>
-        <div className='flex gap-5 items-center justify-center flex-wrap'>
-            <div className='bg-gruvbox-yellow text-gruvbox-dark p-2 rounded-xl text-2xl'>Best Streak: {streak}</div>
-            <div className='bg-gruvbox-aqua text-gruvbox-dark p-2 rounded-xl  text-2xl'>Running Streak: {runningStreak}</div>
-        </div>
-        <div className='flex gap-5 items-center justify-center flex-wrap'>
-            <h1 className='text-2xl'>Logs of Completion</h1>
-            <button className='cursor-pointer bg-gruvbox-light text-gruvbox-dark rounded-md p-1' onClick={()=>{setCalView(!calView)}}>
-                {calView ? <List/> : <Calendar1/>}
-            </button>
-        </div>
+        <div className='flex flex-col items-center gap-5'>
+            <div className='flex justify-center items-center gap-5'>
+                <h1 className='text-2xl'>Logs of Completion</h1>
+                <button className='cursor-pointer bg-gruvbox-light text-gruvbox-dark rounded-md p-1' onClick={()=>{setCalView(!calView)}}>
+                    {calView ? <List/> : <Calendar1/>}
+                </button>
+            </div>
         {calView ? (
             <>
                 <HabitCalendar logs={logs}/>
@@ -80,6 +86,8 @@ const HabitTrack = () => {
             })}
             </div>
         )}
+        </div>
+        </div>
     </div>
   )
 }
