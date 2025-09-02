@@ -6,7 +6,7 @@ export const postRequest = async (url:string, body:Object)=>{
         credentials: 'include',
     })
     const data = await response.json();
-    console.log(data);
+    console.log("backend response", data);
     return data;
 }
 

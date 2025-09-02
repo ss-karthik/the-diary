@@ -46,10 +46,12 @@ export const signup = async (req: Request, res:Response)=>{
             partitioned: true,
         });
         res.status(201).json({user: user.id});
-    } catch (e){
-        console.log("Signup error");
-        console.log(e);
-        res.status(400).json({e});
+    } catch (e:unknown){
+        if(e instanceof Error){
+            console.log("Signup error");
+            console.log(e);
+            res.status(400).json({e:e.message});
+        }
     }
 }
 
@@ -79,12 +81,13 @@ export const login = async (req: Request, res:Response)=>{
             throw new Error("Invalid email or password.");
         }
 
-    } catch (e){
-        console.log("Login error");
-        console.log(e);
-        res.status(400).json({e});
+    } catch (e:unknown){
+        if(e instanceof Error){
+            console.log("Login error");
+            console.log(e);
+            res.status(400).json({e:e.message});
+        }
     }
-
 }
 
 export const logout = async (req: Request, res:Response)=>{
@@ -98,10 +101,12 @@ export const logout = async (req: Request, res:Response)=>{
                 partitioned: true,
         });
         res.status(200).json({user: null});
-    } catch (e){
-        console.log("logout error");
-        console.log(e);
-        res.status(400).json({e});
+    } catch (e:unknown){
+        if(e instanceof Error){
+            console.log("Logout error");
+            console.log(e);
+            res.status(400).json({e:e.message});
+        }
     }
 }
 
